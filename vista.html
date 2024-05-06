@@ -8,20 +8,58 @@
             margin: 0;
             padding: 0;
             display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+            flex-direction: column; /* Cambia la dirección de los elementos a columna */
             align-items: center;
-            height: 100vh; /* Hace que el cuerpo ocupe toda la altura de la ventana */
+            height: 100vh;
         }
-        img {
-            width: 50%; /* Ajusta cada imagen para que ocupe el 50% del ancho de la ventana */
+        .tab-content img {
+            max-width: 90%; /* Ajusta cada imagen para que ocupe el 90% del ancho de la ventana */
+            display: none; /* Oculta todas las imágenes inicialmente */
+        }
+        .tab-content img.active {
+            display: block; /* Solo muestra la imagen activa */
+        }
+        .tabs {
+            list-style-type: none;
+            padding: 0;
+        }
+        .tabs li {
+            display: inline-block;
+            padding: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .tabs li.active {
+            background-color: #ccc;
         }
     </style>
 </head>
 <body>
-    <img src="viz1.svg" alt="Visualización 1">
-    <img src="viz2.svg" alt="Visualización 2">
-    <img src="viz3.svg" alt="Visualización 3">
-    <img src="viz4.svg" alt="Visualización 4">
+    <ul class="tabs">
+        <li class="active" data-tab="tab-1">Mes y Rubro</li>
+        <li data-tab="tab-2">Mes vs Dia de semana</li>
+        <li data-tab="tab-3">Satisfaccion vs monto</li>
+        <li data-tab="tab-4">Satisfaccion vs Importancia</li>
+    </ul>
+    <div class="tab-content">
+        <img src="viz1.svg" alt="Mes y Rubro" class="active" id="tab-1">
+        <img src="viz2.svg" alt="Mes vs Dia de semana" id="tab-2">
+        <img src="viz3.svg" alt="Satisfaccion vs monto" id="tab-3">
+        <img src="viz4.svg" alt="Satisfaccion vs Importancia" id="tab-4">
+    </div>
+    <script>
+        document.querySelectorAll('.tabs li').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tabs li').forEach(t => {
+                    t.classList.remove('active'); // Remove active from all tabs
+                });
+                document.querySelectorAll('.tab-content img').forEach(img => {
+                    img.classList.remove('active'); // Hide all images
+                });
+                this.classList.add('active'); // Add active to the clicked tab
+                document.getElementById(this.getAttribute('data-tab')).classList.add('active'); // Show the corresponding image
+            });
+        });
+    </script>
 </body>
 </html>

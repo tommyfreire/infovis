@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Vista Combinada</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column; /* Cambia la dirección de los elementos a columna */
+            align-items: center;
+            height: 100vh;
+        }
+        .tab-content img {
+            max-width: 90%; /* Ajusta cada imagen para que ocupe el 90% del ancho de la ventana */
+            display: none; /* Oculta todas las imágenes inicialmente */
+        }
+        .tab-content img.active {
+            display: block; /* Solo muestra la imagen activa */
+        }
+        .tabs {
+            list-style-type: none;
+            padding: 0;
+        }
+        .tabs li {
+            display: inline-block;
+            padding: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .tabs li.active {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <ul class="tabs">
+        <li class="active" data-tab="tab-1">Visualización 1</li>
+        <li data-tab="tab-2">Visualización 2</li>
+        <li data-tab="tab-3">Visualización 3</li>
+        <li data-tab="tab-4">Visualización 4</li>
+    </ul>
+    <div class="tab-content">
+        <img src="viz1.svg" alt="Visualización 1" class="active" id="tab-1">
+        <img src="viz2.svg" alt="Visualización 2" id="tab-2">
+        <img src="viz3.svg" alt="Visualización 3" id="tab-3">
+        <img src="viz4.svg" alt="Visualización 4" id="tab-4">
+    </div>
+    <script>
+        document.querySelectorAll('.tabs li').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tabs li').forEach(t => {
+                    t.classList.remove('active'); // Remove active from all tabs
+                });
+                document.querySelectorAll('.tab-content img').forEach(img => {
+                    img.classList.remove('active'); // Hide all images
+                });
+                this.classList.add('active'); // Add active to the clicked tab
+                document.getElementById(this.getAttribute('data-tab')).classList.add('active'); // Show the corresponding image
+            });
+        });
+    </script>
+</body>
+</html>
